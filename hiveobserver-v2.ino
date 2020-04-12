@@ -26,6 +26,7 @@
 #include "trackermkr.h"
 #include "trackergps.h"
 #include "trackerds18b20.h"
+#include "trackerlora.h"
 
 void setup() {
 // put your setup code here, to run once:
