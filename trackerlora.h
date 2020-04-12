@@ -44,6 +44,7 @@ void lora_setup() {
 }
 
 void buildPacket(int pos[], int temp, int bat) {
+    debugSerial.println(F("start buliding package"));
     // reduce the numbers
     int shortlat = pos[0] / 100;
     int shortlon = pos[1] / 100;
@@ -66,6 +67,11 @@ void buildPacket(int pos[], int temp, int bat) {
     txBuffer[13] = ( weight >> 8 ) & 0xFF; // weight
     txBuffer[14] = weight & 0xFF;
     */
+    debugSerial.print(F("package built: "));
+    for (int i = 0; i < sizeof(txBuffer); i++) {
+        debugSerial.print(txBuffer[i]);
+    }
+    flash(2, SLOW);
  }
 
 void lora_send(int pos[], int temp, int bat) {
@@ -74,14 +80,11 @@ void lora_send(int pos[], int temp, int bat) {
     modem.write(txBuffer, sizeof(txBuffer));
     int err = modem.endPacket(false); // error handling
     if (err > 0) {
-        debugSerial.print(F("Data sent: "));
-        for (int i = 0; i < sizeof(txBuffer); i++) {
-            debugSerial.print(txBuffer[i]);
-        }
-        debugSerial.println();
+        debugSerial.print(F("Data sent"));
     }
     else {
         debugSerial.println("Error sending data");
         flash(10, VERY_FAST);
     }
+    flash(2, SLOW);
 }
