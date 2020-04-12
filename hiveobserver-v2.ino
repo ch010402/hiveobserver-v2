@@ -40,4 +40,6 @@ void loop() {
     gps_position();
     int temperatur = ds18b20_temperatur(); // temperautue in C * 100
     int battery = battery_level(); // value from 0 - 255
+
+    lora_send(position, temperatur, battery);
 }

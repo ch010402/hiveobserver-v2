@@ -16,3 +16,6 @@ void lora_setup() {
 
 }
 
+void lora_send(int pos[], int temp, int bat) {
+
+}
