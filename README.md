@@ -1,2 +1,1 @@
-# christoph.latzer-gmail.com
-hiveobserver-v2
+#2nd edition of beehiveobserver
