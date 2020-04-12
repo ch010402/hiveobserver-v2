@@ -19,7 +19,7 @@ battery_level()
 
 //=====functions=====================
 void mkr_setup() {
-
+    pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void flash(int times, unsigned int speed) {

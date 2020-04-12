@@ -41,7 +41,7 @@ void ds18b20_setup() {
 int ds18b20_temperatur() {
     sensors.requestTemperatures();
     float temp = sensors.getTempC(insideThermometer);
-    int temperatur = temp * 100;
+    int temperatur = temp * 10;
     debugSerial.print(F("the temperature is: "));
     debugSerial.println(temp);
     flash(2, SLOW);

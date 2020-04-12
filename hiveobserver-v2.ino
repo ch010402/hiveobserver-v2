@@ -29,7 +29,13 @@
 #include "trackerlora.h"
 
 void setup() {
-// put your setup code here, to run once:
+// DebugSerial
+    debugSerial.begin( 9600 );
+    while (!debugSerial && millis() < 5000); // Wait a maximum of 5s for Serial Monitor serial
+    debugSerial.println(F("Starting up..."));
+    flash(2, FAST);
+// setup from sub scipts     
+    mkr_setup();  // required first as it defines flash used as visual feedback in other sub scripts
     gps_setup();
     ds18b20_setup();
     lora_setup();
@@ -37,8 +43,8 @@ void setup() {
 
 void loop() {
 // put your main code here, to run repeatedly:
-    gps_position();
-    int temperatur = ds18b20_temperatur(); // temperautue in C * 100
+    gps_position(); // writes latitude longitude altitude and satellites in global variable position
+    int temperatur = ds18b20_temperatur(); // temperautue in C * 10
     int battery = battery_level(); // value from 0 - 255
 
     lora_send(position, temperatur, battery);

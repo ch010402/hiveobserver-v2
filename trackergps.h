@@ -34,7 +34,7 @@ void gps_setup() {
 
 void sendUBXcommand(uint8_t *MSG, uint8_t len) {
     debugSerial.println(F("send UBX command"));
-    for(int i = 0 ; i < len; i++) {
+    for (int i = 0 ; i < len; i++) {
         gpsSerial.write(MSG[i]);
     }
     debugSerial.print(F("UBX command: "));
