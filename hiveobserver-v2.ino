@@ -32,11 +32,12 @@ void setup() {
 // put your setup code here, to run once:
     gps_setup();
     ds18b20_setup();
+    lora_setup();
 }
 
 void loop() {
 // put your main code here, to run repeatedly:
     gps_position();
-    ds18b20_temperatur();
-
+    int temperatur = ds18b20_temperatur(); // temperautue in C * 100
+    int battery = battery_level(); // value from 0 - 255
 }

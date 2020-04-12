@@ -16,7 +16,6 @@ ds18b20_temperature()
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 DeviceAddress insideThermometer;
-float temperature = 0.0;
 
 //=====functions=====================
 void ds18b20_setup() {
@@ -39,10 +38,12 @@ void ds18b20_setup() {
     flash(2, SLOW);
 }
 
-void ds18b20_temperatur() {
+int ds18b20_temperatur() {
     sensors.requestTemperatures();
-    temperature = sensors.getTempC(insideThermometer);
+    float temp = sensors.getTempC(insideThermometer);
+    int temperatur = temp * 100;
     debugSerial.print(F("the temperature is: "));
-    debugSerial.println(temperature);
+    debugSerial.println(temp);
     flash(2, SLOW);
+    return temperatur;
 }
