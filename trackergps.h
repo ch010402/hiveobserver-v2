@@ -1,5 +1,12 @@
 /* extraction of GPS stuff to clean up code
-*/
+
+public:
+gps_setup();
+gps_position();
+
+privat:
+sendUBXcommand(MSG, sizeof(MSG))
+ */
 
 //=====includes=====================
 #include <NMEAGPS.h>
@@ -36,7 +43,7 @@ void sendUBXcommand(uint8_t *MSG, uint8_t len) {
     flash(3, FAST);
 }
 
-void get_position() {
+void gps_position() {
     debugSerial.println(F("get the GPS position"));
     
     sendUBXcommand(gps_up, sizeof(gps_up)/sizeof(uint8_t)); // wake up GPS

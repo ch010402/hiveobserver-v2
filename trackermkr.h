@@ -1,5 +1,10 @@
-/* extract of mlr stuff 
+/* extract of mkr stuff 
+
+public:
+flash(int count, speed [VERY_FAST, FAST, SLOW])
  */
+
+//=====includes=====================
 
 //=====definitions=====================
 // Flash

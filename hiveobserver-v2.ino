@@ -25,14 +25,17 @@
 //=====includes=====================
 #include "trackermkr.h"
 #include "trackergps.h"
+#include "trackerds18b20.h"
 
 void setup() {
 // put your setup code here, to run once:
     gps_setup();
+    ds18b20_setup();
 }
 
 void loop() {
 // put your main code here, to run repeatedly:
-    get_position();
+    gps_position();
+    ds18b20_temperatur();
 
 }
