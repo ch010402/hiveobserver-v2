@@ -23,7 +23,7 @@ void ds18b20_setup() {
     sensors.begin(); // start the sensor
     debugSerial.print(F("Found "));
     debugSerial.print(sensors.getDeviceCount(), DEC);
-    debugSerial.println(F(" devices."));
+    debugSerial.println(F(" device/s."));
     debugSerial.print(F("Parasite power is: "));
     if (sensors.isParasitePowerMode()) debugSerial.println(F("ON"));
     else debugSerial.println(F("OFF"));
@@ -31,8 +31,8 @@ void ds18b20_setup() {
         debugSerial.println("Unable to find address for Device 0");
         flash(FOREVER, VERY_FAST);
     }
-    sensors.setResolution(insideThermometer, 9); // set the resolution
-    debugSerial.print(F("Device 0 Resolution: "));
+    sensors.setResolution(insideThermometer, 12); // set the resolution
+    debugSerial.print(F("Resolution: "));
     debugSerial.print(sensors.getResolution(insideThermometer), DEC); 
     debugSerial.println();
     flash(2, SLOW);

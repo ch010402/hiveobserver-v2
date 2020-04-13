@@ -47,9 +47,13 @@ void buildPacket(int pos[], int temp, int bat) {
     debugSerial.println(F("start buliding package"));
     // reduce the numbers
     int shortlat = pos[0] / 100;
+    debugSerial.print(F("latitude, "));
     int shortlon = pos[1] / 100;
+    debugSerial.print(F("longitude, "));
     int alt_m = pos[2] / 100;
+    debugSerial.print(F("altitude, "));
     int centitemp = ( temp + 500 );
+    debugSerial.print(F("temperatur, "));
     txBuffer[0] = device[0]; //device ID
     txBuffer[1] = ( shortlat >> 16 ) & 0xFF; // latitude
     txBuffer[2] = ( shortlat >> 8 ) & 0xFF;
@@ -60,17 +64,21 @@ void buildPacket(int pos[], int temp, int bat) {
     txBuffer[7] = ( alt_m >> 8 ) & 0xFF; // altitude
     txBuffer[8] = alt_m & 0xFF;
     txBuffer[9] = pos[3] & 0xFF; // satellites
+    debugSerial.print(F("satelites, "));
     txBuffer[10] = (centitemp >> 8 ) & 0xFF; // temperatur
     txBuffer[11] = centitemp & 0xFF;
     txBuffer[12] = bat &  0xFF; // battery level
+    debugSerial.println(F("battery"));
     /* future to come
     txBuffer[13] = ( weight >> 8 ) & 0xFF; // weight
     txBuffer[14] = weight & 0xFF;
     */
     debugSerial.print(F("package built: "));
     for (int i = 0; i < sizeof(txBuffer); i++) {
-        debugSerial.print(txBuffer[i]);
+        debugSerial.print(txBuffer[i], HEX);
+        debugSerial.print(F(" "));
     }
+    debugSerial.println();
     flash(2, SLOW);
  }
 
@@ -80,7 +88,7 @@ void lora_send(int pos[], int temp, int bat) {
     modem.write(txBuffer, sizeof(txBuffer));
     int err = modem.endPacket(false); // error handling
     if (err > 0) {
-        debugSerial.print(F("Data sent"));
+        debugSerial.println(F("Data sent over LoRa"));
     }
     else {
         debugSerial.println("Error sending data");

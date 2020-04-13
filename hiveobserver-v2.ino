@@ -35,17 +35,20 @@ void setup() {
     debugSerial.println(F("Starting up..."));
     flash(2, FAST);
 // setup from sub scipts     
-    mkr_setup();  // required first as it defines flash used as visual feedback in other sub scripts
-    gps_setup();
+    mkr_setup();  // required first as it defines flash, used as visual feedback in other sub scripts
+    //gps_setup();
     ds18b20_setup();
     lora_setup();
 }
 
 void loop() {
 // put your main code here, to run repeatedly:
-    gps_position(); // writes latitude longitude altitude and satellites in global variable position
+    //gps_position(); // writes latitude longitude altitude and satellites in global variable position
     int temperatur = ds18b20_temperatur(); // temperautue in C * 10
     int battery = battery_level(); // value from 0 - 255
 
     lora_send(position, temperatur, battery);
+
+    //delay(1000 * 60 * 2);
+    LowPower.deepSleep(1000 * 60 * 2);
 }

@@ -7,6 +7,8 @@ battery_level()
 
 //=====includes=====================
 #include <pins_arduino.h>
+#include "RTCZero.h"
+#include <ArduinoLowPower.h>
 
 //=====definitions=====================
 // Flash
