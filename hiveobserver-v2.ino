@@ -50,6 +50,9 @@ void loop() {
     lora_send(position, temperatur, battery);
 
     //delay(1000 * 60 * 2);
-    LowPower.deepSleep(1000 * 60 * 10);
-    //delay(1000*5);
+    debugSerial.flush(); // flush everything befor going to sleep
+    debugSerial.println("*** going to deep sleep");
+    //LowPower.deepSleep(1000 * 60 * 2);
+    delay(1000 * 60 * 2);
+    debugSerial.println("*** woke up");
 }
