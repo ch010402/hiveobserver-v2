@@ -79,7 +79,7 @@ void buildPacket(int pos[], int temp, int bat) {
         debugSerial.print(F(" "));
     }
     debugSerial.println();
-    flash(2, SLOW);
+    flash(5, FAST);
  }
 
 void lora_send(int pos[], int temp, int bat) {

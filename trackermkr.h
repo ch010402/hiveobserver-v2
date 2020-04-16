@@ -9,6 +9,7 @@ battery_level()
 #include <pins_arduino.h>
 #include "RTCZero.h"
 #include <ArduinoLowPower.h>
+#include <Wire.h>
 
 //=====definitions=====================
 // Flash
@@ -34,26 +35,23 @@ void flash(int times, unsigned int speed) {
 }
 
 int battery_level() {
-    float battery_voltage = 4.2; // use voltmeter
-    int batterylevel;
+    int vin = A0; // the Sensor pin
+    int r1 = 554; // Resistor 560kOhm
+    int r2 = 1550; // Resistor 1.5MOhm
+    float batteryMaxVoltage = 4.2; // maximum Battery Voltage 
+    float minimumVoltage = 2.6; // minimum Battery Voltage 
 
-    analogReadResolution(10);
-    analogReference(AR_INTERNAL1V0); 
-    //AR_DEFAULT: the default analog reference of 3.3V 
-    //AR_INTERNAL1V0: a built-in 1.0V reference
-    // read the input on analog pin 0:
-    int sensorValue = analogRead(A0);
-    // Convert the analog reading (which goes from 0 - 1023)
-    float voltage = sensorValue * (battery_voltage / 1023.0);
-    // print out the value you read:
-    debugSerial.print("Voltage: ");
-    debugSerial.print(voltage);
-    debugSerial.println("V");
-
-    analogReference(AR_DEFAULT);
-
-    batterylevel = sensorValue / 2;
-    return batterylevel;
-    
-    flash(2, SLOW);
+    int sensorValue = analogRead(vin); // read the sensor Pin
+    debugSerial.print("Input A0 = ");
+    debugSerial.println(sensorValue);
+    float sensorVoltage = 3.3 / 1023 * sensorValue; // interprete sensor Value compared to 3V3
+    debugSerial.print("Input Voltage = ");
+    debugSerial.println(sensorVoltage);
+    float batteryVoltage = sensorVoltage / r2 * (r1 + r2); // calculate battery Voltage
+    debugSerial.print("Battery Voltage = ");
+    debugSerial.println(batteryVoltage);
+    int batteryLevel = 255 / ( batteryMaxVoltage - minimumVoltage) * (batteryVoltage -minimumVoltage); // scale to 1 byte the range from 4.2 to 2.6V
+    debugSerial.print("Battery level = ");
+    debugSerial.println(batteryLevel);
+    return batteryLevel;
 }
