@@ -48,6 +48,7 @@ void gps_position() {
     debugSerial.println(F("get the GPS position"));
     
     sendUBXcommand(gps_up, sizeof(gps_up)/sizeof(uint8_t)); // wake up GPS
+    //sendUBXcommand(gps_on, sizeof(gps_on)/sizeof(uint8_t)); // power GPS on
     bool exit = false; // set exit condition to false
     if ( loop_counter == 10) {
         delay(1000 * 90); // give GPS time to get a fix
@@ -75,6 +76,7 @@ void gps_position() {
         //debugSerial.println("outer loop"); //used for debugging while in while loop
     }
     sendUBXcommand(gps_down, sizeof(gps_down)/sizeof(uint8_t)); // put GPS to seleep
+    //sendUBXcommand(gps_off, sizeof(gps_off)/sizeof(uint8_t)); // shut GPS down
 
     debugSerial.print(F("the GPS data are: "));
     int len = sizeof(position);

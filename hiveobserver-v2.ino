@@ -52,7 +52,7 @@ void loop() {
     //delay(1000 * 60 * 2);
     debugSerial.flush(); // flush everything befor going to sleep
     debugSerial.println("*** going to deep sleep");
-    LowPower.deepSleep(1000 * 60 * 10); //after waking up from deepsleep the serial monitor needs to be re-opend 
+    LowPower.deepSleep(1000 * 60 * 30); //after waking up from deepsleep the serial monitor needs to be re-opend 
     //delay(1000 * 60 * 2);
     debugSerial.println("*** woke up");
 }
